@@ -1,0 +1,72 @@
+Execution Steps
+Step 1 — Install WSL
+Open PowerShell as Administrator:
+wsl --install
+	• Reboot system after installation.
+
+Step 2 — Open Ubuntu
+	• Search “Ubuntu” in Start Menu.
+	• Set Linux username and password.
+
+Step 3 — Install Ansible
+Run inside Ubuntu terminal:
+sudo apt update
+sudo apt install ansible -y
+
+Step 4 — Verify Installation
+ansible --version
+Expected:
+ansible [core 2.13.x]
+
+Step 5 — Create Working Directory
+mkdir ~/ansible-lab
+cd ~/ansible-lab
+
+Step 6 — Create Inventory File
+nano hosts
+Add:
+[local]
+localhost ansible_connection=local
+Save using:
+	• CTRL + O
+	• ENTER
+	• CTRL + X
+
+Step 7 — Test Ansible Ping
+ansible -i hosts local -m ping
+Expected output:
+pong
+
+Step 8 — Create NGINX Playbook
+nano install_nginx.yml
+Paste:
+---
+- name: Install and start NGINX
+  hosts: local
+
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Start nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+Step 9 — Syntax Check
+ansible-playbook install_nginx.yml --syntax-check
+	• If no errors → syntax is correct.
+
+Step 10 — Run Playbook
+sudo ansible-playbook -i hosts install_nginx.yml
+Expected:
+TASK [Install nginx] ok / changed
+TASK [Start nginx] ok
+
+Step 11 — Verify NGINX
+curl http://localhost
+	• NGINX welcome page should appear.
+

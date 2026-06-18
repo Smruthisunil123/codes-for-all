@@ -1,0 +1,84 @@
+Execution Steps
+Part A — Jenkins Maven CI Pipeline
+Step 1 — Open Jenkins
+	• Open browser:http://localhost:8080
+	• Login to Jenkins.
+
+Step 2 — Create New Job
+	1. Click New Item
+	2. Enter project name: HelloMaven-CI
+	3. Select: Freestyle Project
+	4. Click OK
+
+Step 3 — Configure Git Repository
+	1. Go to:Source Code Management
+	2. Select:Git
+	3. Enter GitHub repository URL: https://github.com/yourusername/HelloMaven.git
+	4. Add credentials if repository is private.
+	5. Select branch:*/main
+
+Step 4 — Add Maven Build Step
+	1. Scroll to:Build
+	2. Click:Add Build Step
+	3. Select:Invoke top-level Maven targets
+	4. Enter goals:clean package
+
+Step 5 — Archive Artifacts
+	1. Go to:Post-build Actions
+	2. Click:Archive the artifacts
+	3. Enter:target/*.jar
+	• Archives generated JAR files.
+
+Step 6 — Save and Build
+	• Click Save
+	• Click:Build Now
+
+Step 7 — Verify Build
+	• Build should show:SUCCESS
+	• JAR file should appear in:target/
+
+Part B — Docker Deployment
+Step 8 — Install Docker Desktop
+	1. Download Docker Desktop
+	2. Install Docker
+	3. Enable:
+		○ WSL2
+		○ Hyper-V
+	4. Restart system if required.
+
+Step 9 — Verify Docker
+docker --version
+
+Step 10 — Create Dockerfile
+Create file:
+Dockerfile
+Paste:
+FROM nginx:alpine
+
+LABEL maintainer="praveen-ct" \
+ project="devops2exp" \
+ description="Tripillar Solutions static website served via Nginx"
+
+RUN rm -rf /usr/share/nginx/html/*
+
+COPY src/main/resources/index.html /usr/share/nginx/html/index.html
+
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]Step 11 — Build Docker Image
+docker build -t devops2exp-web:latest .
+
+Step 12 — Run Docker Container
+docker run -d -p 8090:80 --name devops-web-container devops2exp-web:latest
+
+Step 13 — Verify Container
+docker ps
+	• Container should be running.
+Step 14 — Open Browser
+Go to:
+
+http://localhost:8090
+
+
+	
