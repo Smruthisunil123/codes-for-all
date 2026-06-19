@@ -1,0 +1,19 @@
+git config --global user. email “github_emailid”
+git config -- global user.name “github_username”
+git init
+git add . 
+git status
+git commit -m "Adding index, styles, logo, files"
+git remote add origin   // paste url after origin
+git remote show origin
+git status
+mvn clean install
+git status
+git add .
+git remote show origin 
+Git commit  -m “added the docs folder”
+git  push -u origin master
+git status
+git clone https://github.com/USERNAME/REPOSITORY.git
+cd GSTGenie
+git pull
