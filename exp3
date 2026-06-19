@@ -1,0 +1,9 @@
+gradle run
+Git init
+git add . 
+git status
+git commit -m "Deploy website using Gradle" 
+git remote add  origin https://github.com/praveen-ct/Gradle3.git
+git remote show origin 
+git push -u origin master
+gradle test
