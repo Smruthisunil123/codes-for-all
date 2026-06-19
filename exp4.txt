@@ -12,6 +12,9 @@
         </plugins>
     </build>
 
+mvn clean install
+mvn exec:java -Dexec.mainClass="org.example.App"
+gradle init
 
 plugins {
     id 'java'
@@ -28,3 +31,8 @@ dependencies {
 application {
     mainClass = 'org.example.App'
 }
+
+gradlew clean
+gradlew build
+gradlew run
+
