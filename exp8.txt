@@ -58,15 +58,11 @@ FROM nginx:alpine
 LABEL maintainer="praveen-ct" \
  project="devops2exp" \
  description="Tripillar Solutions static website served via Nginx"
-
 RUN rm -rf /usr/share/nginx/html/*
-
 COPY src/main/resources/index.html /usr/share/nginx/html/index.html
-
-
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]Step 11 — Build Docker Image
+
 docker build -t devops2exp-web:latest .
 
 Step 12 — Run Docker Container
